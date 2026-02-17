@@ -275,6 +275,16 @@ function App() {
           <RevealModal
             open={modalOpen}
             value={selectedValue}
+            url={
+              selectedValue
+                ? rows.find((r) => r.id === selectedValue)?.url ?? null
+                : null
+            }
+            owners={
+              selectedValue
+                ? rows.find((r) => r.id === selectedValue)?.usernames ?? null
+                : null
+            }
             onClose={() => setModalOpen(false)}
             onRemove={() => {
               // modal wipe-out finished -> trigger wheel pop animation

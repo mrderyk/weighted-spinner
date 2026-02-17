@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 type RevealModalProps = {
   open: boolean;
   value: string | null;
+  owners: string | null;
+  url: string | null;
   onClose: () => void;
   onRemove?: (value: string) => void; // 🔥 new
 };
@@ -12,6 +14,8 @@ export function RevealModal({
   value,
   onClose,
   onRemove,
+  url,
+  owners,
 }: RevealModalProps) {
   const [exiting, setExiting] = useState(false);
 
@@ -25,6 +29,8 @@ export function RevealModal({
     if (!exiting) setExiting(true);
     onClose(); // parent flips open=false
   };
+
+  console.log("### URL: ", url);
 
   return (
     <div
@@ -47,7 +53,7 @@ export function RevealModal({
       <div
         style={{
           position: "relative",
-          top: "-24px",
+          top: "-40px",
           pointerEvents: "auto",
           width: "min(520px, 92vw)",
           background: "#242424",
@@ -94,28 +100,11 @@ export function RevealModal({
           ✕
         </button>
 
-        <div style={{ padding: "8px 18px 22px 18px" }}>
-          <div
-            style={{
-              fontFamily:
-                'system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif',
-              fontWeight: 600,
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-              fontSize: 12,
-              color: "rgba(255,255,255,0.6)",
-              marginBottom: 10,
-            }}
-          >
-            Selected
-          </div>
-
+        <div style={{ padding: "24px 18px 24px 18px" }}>
           <div
             style={{
               display: "inline-block",
-              padding: "14px 16px",
               borderRadius: 10,
-              background: "rgba(255,255,255,0.05)",
             }}
           >
             <div
@@ -129,8 +118,25 @@ export function RevealModal({
                 whiteSpace: "nowrap",
               }}
             >
-              {value ?? "—"}
+              {url ? (
+                <a target="_blank" href={url}>
+                  {value ?? "—"}
+                </a>
+              ) : (
+                value ?? "-"
+              )}
             </div>
+          </div>
+          <div
+            style={{
+              marginTop: "8px",
+              fontFamily:
+                'system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif',
+              letterSpacing: "2px",
+              fontSize: 10,
+            }}
+          >
+            {owners?.toUpperCase() ?? ""}
           </div>
         </div>
       </div>

@@ -415,9 +415,7 @@ export function WeightedWheel({
         removingRef.current = false;
         selectedIndexRef.current = null;
 
-        // ✅ callback AFTER pop completes
         onRemove?.(valueToRemove);
-
         drawWheel(rotationRef.current);
       }
     };
